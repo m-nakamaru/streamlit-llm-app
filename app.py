@@ -1,3 +1,17 @@
+import os
+import streamlit as st
+
+# Secrets（Cloud）を最優先で環境変数に流し込む
+if "OPENAI_API_KEY" in st.secrets and not os.getenv("OPENAI_API_KEY"):
+    os.environ["OPENAI_API_KEY"] = st.secrets["OPENAI_API_KEY"]
+
+# dotenv は開発（ローカル）用。無ければスキップして落ちないようにする
+try:
+    from dotenv import load_dotenv
+    load_dotenv()
+except Exception:
+    pass
+
 from dotenv import load_dotenv
 
 load_dotenv()
